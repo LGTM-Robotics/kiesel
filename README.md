@@ -1,6 +1,6 @@
 # Kiesel 🤖
 
-Kiesel is going to be a small, round robot for indoor use: it should build a map of its surroundings on its own and navigate autonomously within it. Technically, it is a differential-drive robot running ROS 2, with a 360° lidar as its "hat", a camera in its right eye and a friendly orange shell (an original character design).
+Kiesel is going to be a small, pebble-shaped robot for indoor use: it should build a map of its surroundings on its own and navigate autonomously within it. Technically, it is a differential-drive robot running ROS 2, with a 360° lidar as its "hat", a camera in its right eye and a sand-colored, rounded-square shell with a friendly face (an original character design).
 
 > **Status: planning phase.** The concept and a parametric CAD model are done, parts are being sourced. Nothing has been printed or programmed yet.
 
@@ -45,7 +45,7 @@ Kiesel is going to be a small, round robot for indoor use: it should build a map
 
 | | |
 |---|---|
-| Shell | Ø ≈ 232 mm, height ≈ 115 mm (≈ 150 mm with lidar) |
+| Shell | ≈ 232 × 232 mm (rounded square), height ≈ 115 mm (≈ 150 mm with lidar), sand-colored PETG |
 | Drive | 2 × JGA25-370, 12 V, 170 rpm, Hall encoders, 65 mm wheels |
 | Track width | 176 mm (axle 12 mm behind the robot center) |
 | Caster | front (printed with a 1" steel ball, or an off-the-shelf ball transfer unit) |
@@ -62,5 +62,5 @@ Kiesel is going to be a small, round robot for indoor use: it should build a map
 
 - **Base plate** carries everything: the motors hang below it in printed brackets; battery, computer, electronics and the lidar tower sit on top.
 - **Lidar tower** stands directly on the base plate; the lidar sits on a deck plate that lies flush in an opening of the shell.
-- **Shell** is a pure cover (4 screws) and can be lifted off over the lidar. Kiesel also drives without it.
+- **Shell** is a pure cover (4 screws) and can be lifted off over the lidar. Kiesel also drives without it. The eyes are separately printed black inserts.
 - **Camera** looks through the pupil of the right eye; the left eye is reserved for a distance sensor or an LED.
