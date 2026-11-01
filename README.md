@@ -41,6 +41,12 @@ Kiesel is going to be a small, pebble-shaped robot for indoor use: it should bui
 - [ ] Mapping with `slam_toolbox`
 - [ ] Autonomous navigation with Nav2
 
+## System overview
+
+<p align="center"><img src="hardware/wiring/overview.svg" width="100%" alt="Kiesel system overview"></p>
+
+Generated from [`hardware/wiring/overview.py`](hardware/wiring/overview.py). Pin-level wiring will follow.
+
 ## Key specs (planned)
 
 | | |
@@ -49,7 +55,8 @@ Kiesel is going to be a small, pebble-shaped robot for indoor use: it should bui
 | Drive | 2 × JGA25-370, 12 V, 170 rpm, Hall encoders, 65 mm wheels |
 | Track width | 176 mm (axle 12 mm behind the robot center) |
 | Caster | front (printed with a 1" steel ball, or an off-the-shelf ball transfer unit) |
-| Battery | 3S LiPo (XT60), in front of the axle |
+| Battery | 3S LiPo (XT60), in front of the axle, 7.5 A fuse |
+| Power | 12 V → 5 V/5 A buck converter with USB-C output for the Pi 5 |
 | Motor driver | TB6612FNG |
 | Microcontroller | Raspberry Pi Pico 2 H (RP2350), micro-ROS over UART |
 | Computer | Raspberry Pi 5 |
