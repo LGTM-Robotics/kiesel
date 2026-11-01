@@ -33,7 +33,7 @@ Kiesel is going to be a small, pebble-shaped robot for indoor use: it should bui
 
 ### Phase 3 – Electronics & firmware
 - [ ] Wiring: battery, motor driver, buck converter, microcontroller ⇄ computer via UART
-- [ ] Microcontroller firmware: encoder counting, PWM, PID speed control, battery monitoring, watchdog, micro-ROS
+- [ ] Microcontroller firmware: encoder counting, PWM, PID speed control, IMU, battery monitoring, watchdog, micro-ROS
 
 ### Phase 4 – ROS 2
 - [ ] URDF, bringup, lidar driver, camera
@@ -55,6 +55,7 @@ Kiesel is going to be a small, pebble-shaped robot for indoor use: it should bui
 | Computer | Raspberry Pi 5 |
 | Lidar | LDROBOT D500 (STL-19P), 360°, 0.03–12 m, 10 Hz |
 | Camera | Pi Camera Module 3 |
+| IMU | TDK ICM-42688-P (6-axis), fused with wheel odometry |
 | Optional | VL53L1X distance sensor (ToF) in the left eye |
 | Speed | ≈ 0.5 m/s |
 
