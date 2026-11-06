@@ -8,7 +8,7 @@ Kiesel is going to be a small, pebble-shaped robot for indoor use: it should bui
   <img src="hardware/cad/kiesel_render.png" width="49%" alt="Kiesel with shell">
   <img src="hardware/cad/kiesel_render_offen.png" width="49%" alt="Kiesel without shell">
 </p>
-<p align="center"><sub>OpenSCAD model with placeholder components. Right, without the shell: battery (blue) at the front, lidar tower in the center, single-board computer (green) at the back. The camera board (left in the image) is actually mounted to the shell behind the right eye.</sub></p>
+<p align="center"><sub>OpenSCAD model with placeholder components. Right, without the shell: battery (blue) at the front, lidar tower in the center, computer (Jetson Orin NX on its carrier) at the back. The camera board (left in the image) is actually mounted to the shell behind the right eye.</sub></p>
 
 ## What we're planning
 
@@ -32,7 +32,7 @@ Kiesel is going to be a small, pebble-shaped robot for indoor use: it should bui
 - [ ] Print and assemble base plate, lidar tower and shell
 
 ### Phase 3 – Electronics & firmware
-- [ ] Wiring: battery, motor driver, buck converter, microcontroller ⇄ computer via UART
+- [ ] Wiring: battery, motor driver, microcontroller ⇄ computer via UART
 - [ ] Microcontroller firmware: encoder counting, PWM, PID speed control, IMU, battery monitoring, watchdog, micro-ROS
 
 ### Phase 4 – ROS 2
@@ -55,16 +55,18 @@ Generated from [`hardware/wiring/overview.py`](hardware/wiring/overview.py). Pin
 | Drive | 2 × JGA25-370, 12 V, 170 rpm, Hall encoders, 65 mm wheels |
 | Track width | 176 mm (axle 12 mm behind the robot center) |
 | Caster | front, swivel caster with 30 mm rubber wheel (handles door thresholds) |
-| Battery | 3S LiPo (XT60), in front of the axle, 7.5 A fuse |
-| Power | 12 V → 5 V/5 A buck converter with USB-C output for the Pi 5 |
+| Battery | 3S LiPo (XT60), in front of the axle, 10 A fuse |
+| Power | Single-board computer directly from the battery (9–20 V input); the microcontroller takes 5 V from its header |
 | Motor driver | TB6612FNG |
 | Microcontroller | Raspberry Pi Pico 2 H (RP2350), micro-ROS over UART |
-| Computer | Raspberry Pi 5 |
+| Single-board computer | NVIDIA Jetson Orin NX on a Seeed A603 carrier (any other SBC, e.g. a Raspberry Pi 5, works too) |
 | Lidar | LDROBOT D500 (STL-19P), 360°, 0.03–12 m, 10 Hz |
-| Camera | Pi Camera Module 3 |
+| Camera | IMX219 camera (15-pin CSI) |
 | IMU | TDK ICM-42688-P (6-axis), fused with wheel odometry |
 | Optional | VL53L1X distance sensor (ToF) in the left eye |
 | Speed | ≈ 0.5 m/s |
+
+**Another single-board computer instead of the Jetson?** Kiesel stays universal: any SBC that fits behind the lidar tower can be used, e.g. a Raspberry Pi 5 (the base plate already has its mounting holes). SBCs that run on 5 V get a 12 V → 5 V buck converter (for the Pi 5: 5 A with USB-C output); the camera depends on the SBC (e.g. Pi Camera Module 3 for the Pi 5). Details in the docs, once published.
 
 ## Design overview
 

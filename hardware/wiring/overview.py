@@ -19,9 +19,10 @@ STYLE = {
     "ctrl":  ("#2a9d8f", 4, None,  "Motor control (PWM + direction)"),
     "enc":   ("#2a9d8f", 3, "8 6", "Encoder signals"),
     "uart":  ("#e0a800", 4, None,  "Serial data (UART)"),
+    "usb":   ("#5c677d", 4, None,  "USB (power + data)"),
     "i2c":   ("#277da1", 4, None,  "I²C bus"),
     "swd":   ("#7b2cbf", 3, None,  "Flashing (SWD)"),
-    "csi":   ("#6c757d", 5, None,  "Camera ribbon cable (CSI)"),
+    "csi":   ("#b0b7bf", 5, None,  "Camera ribbon cable (CSI)"),
 }
 
 out = []
@@ -62,12 +63,6 @@ def icon_fuse(cx, cy):
 def icon_switch(cx, cy):
     add(f'<rect x="{cx - 22}" y="{cy - 4}" width="44" height="16" rx="8" fill="#555"/>')
     add(f'<line x1="{cx}" y1="{cy + 4}" x2="{cx + 14}" y2="{cy - 16}" stroke="#333" stroke-width="6" stroke-linecap="round"/>')
-
-
-def icon_buck(cx, cy):
-    pcb(cx, cy, 70, 40, "#2f6f4f")
-    add(f'<circle cx="{cx - 12}" cy="{cy}" r="11" fill="#333"/>')
-    text(cx + 18, cy + 5, "5V", size=12, weight="bold", color="#fff")
 
 
 def icon_driver(cx, cy):
@@ -166,12 +161,10 @@ text(40, 45, "Kiesel – system overview", size=24, weight="bold", anchor="start
 # Wires first, so the cards sit on top of the line ends
 wire("bat", [(200, 140), (230, 140)])
 wire("bat", [(310, 140), (340, 140)])
-wire("bat", [(440, 140), (490, 140)])
 wire("bat", [(390, 185), (390, 330)], "12 V", (390, 300))
+wire("bat", [(440, 140), (920, 140), (920, 320), (950, 320)], "12 V · XT30", (680, 140))
 wire("sense", [(390, 260), (620, 260), (620, 340), (660, 340)], "battery voltage", (505, 260))
-wire("5v", [(660, 140), (900, 140), (900, 320), (950, 320)], "5 V · USB-C", (780, 140))
 wire("5v", [(950, 405), (810, 405)], "5 V", (880, 405))
-wire("5v", [(1040, 300), (1040, 210)])
 wire("ctrl", [(660, 390), (450, 390)], "PWM + direction", (555, 390))
 wire("motor", [(320, 450), (320, 560), (130, 560), (130, 620)], "motor power", (225, 560))
 wire("motor", [(390, 450), (390, 620)])
@@ -179,7 +172,7 @@ wire("enc", [(480, 685), (600, 685), (600, 520), (660, 520)])
 wire("enc", [(130, 750), (130, 790), (620, 790), (620, 555), (660, 555)], "encoders", (380, 790))
 wire("uart", [(810, 370), (950, 370)], "micro-ROS (UART)", (880, 370))
 wire("swd", [(950, 440), (810, 440)], "flashing (SWD)", (880, 440))
-wire("uart", [(1110, 210), (1110, 300)], "scan data (UART)", (1180, 255))
+wire("usb", [(1080, 210), (1080, 300)], "power + scan data (USB)", (1080, 255))
 wire("csi", [(1290, 395), (1210, 395)])
 wire("i2c", [(735, 600), (735, 700)])
 wire("i2c", [(735, 650), (915, 650), (915, 700)], "I²C", (825, 650))
@@ -187,14 +180,13 @@ wire("i2c", [(735, 650), (915, 650), (915, 700)], "I²C", (825, 650))
 card(40, 80, 160, 120, icon_battery, "Battery", "3S LiPo")
 card(230, 100, 80, 80, icon_fuse, "Fuse", "", icon_dy=30)
 card(340, 95, 100, 90, icon_switch, "Switch", "", icon_dy=34)
-card(490, 80, 170, 120, icon_buck, "Buck converter", "12 V → 5 V, USB-C")
 card(270, 330, 180, 120, icon_driver, "Motor driver", "TB6612FNG")
 card(40, 620, 180, 130, icon_motor, "Left motor", "JGA25-370 + encoder", icon_dy=48)
 card(300, 620, 180, 130, icon_motor, "Right motor", "JGA25-370 + encoder", icon_dy=48)
 card(660, 300, 150, 300, icon_pico, "Microcontroller", "Pi Pico 2 H", "motors · odometry · IMU", icon_dy=120)
-card(950, 300, 260, 190, icon_pi, "Computer", "Raspberry Pi 5", "ROS 2 · SLAM · navigation", icon_dy=70)
+card(950, 300, 260, 190, icon_pi, "Single-board computer", "e.g. Jetson Orin NX (Seeed A603)", "ROS 2 · SLAM · navigation", icon_dy=70)
 card(990, 80, 180, 130, icon_lidar, "Lidar", "LDROBOT D500", icon_dy=50)
-card(1290, 330, 160, 130, icon_camera, "Camera", "Pi Camera Module 3", icon_dy=48)
+card(1290, 330, 160, 130, icon_camera, "Camera", "e.g. IMX219 camera", icon_dy=48)
 card(640, 700, 150, 120, icon_imu, "IMU", "ICM-42688-P")
 card(830, 700, 170, 120, icon_tof, "Distance sensor", "VL53L1X (optional)", dashed=True)
 
@@ -208,7 +200,7 @@ for i, (color, width, dash, label) in enumerate(STYLE.values()):
     add(f'<line x1="{lx}" y1="{y}" x2="{lx + 50}" y2="{y}" stroke="{color}" stroke-width="{width}" stroke-linecap="round"{dash_attr}/>')
     text(lx + 64, y + 4, label, size=13, anchor="start")
 
-text(40, 875, "All grounds (GND) are connected – not shown. Pin-level wiring will follow.", size=12, color="#777", anchor="start")
+text(40, 872, "All grounds (GND) are connected – not shown.", size=15, color="#555", anchor="start")
 add("</svg>")
 
 Path(__file__).with_name("overview.svg").write_text("\n".join(out) + "\n", encoding="utf-8")
