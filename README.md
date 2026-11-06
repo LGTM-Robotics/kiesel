@@ -24,11 +24,11 @@ Kiesel is going to be a small, pebble-shaped robot for indoor use: it should bui
 - [x] Concept, component selection and design decisions
 - [x] Parametric CAD model
 - [ ] Order parts
-- [ ] Open decisions: left eye (distance sensor or LED), caster
+- [ ] Open decisions: left eye (distance sensor or LED)
 
 ### Phase 2 – Mechanics
 - [ ] Transfer measurements of the delivered parts into the CAD model (motor length, wheels, battery, lidar mounting, camera)
-- [ ] Test prints: motor brackets, caster
+- [ ] Test prints: motor brackets, caster spacer block
 - [ ] Print and assemble base plate, lidar tower and shell
 
 ### Phase 3 – Electronics & firmware
@@ -54,7 +54,7 @@ Generated from [`hardware/wiring/overview.py`](hardware/wiring/overview.py). Pin
 | Shell | ≈ 232 × 232 mm (rounded square), height ≈ 115 mm (≈ 150 mm with lidar), sand-colored PETG |
 | Drive | 2 × JGA25-370, 12 V, 170 rpm, Hall encoders, 65 mm wheels |
 | Track width | 176 mm (axle 12 mm behind the robot center) |
-| Caster | front (printed with a 1" steel ball, or an off-the-shelf ball transfer unit) |
+| Caster | front, swivel caster with 30 mm rubber wheel (handles door thresholds) |
 | Battery | 3S LiPo (XT60), in front of the axle, 7.5 A fuse |
 | Power | 12 V → 5 V/5 A buck converter with USB-C output for the Pi 5 |
 | Motor driver | TB6612FNG |
